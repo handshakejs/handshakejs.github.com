@@ -49,7 +49,7 @@ Outline of the ecosystem:
 ++ [Ruby](https://github.com/handshakejs/handshakejs-ruby)
 ++ [Nodejs](https://github.com/handshakejs/handshakejs-nodejs)
 
-## Contributors
+## Made by [Scott Motte](https://github.com/scottmotte) and others
 
 + [Daniel Archer](https://github.com/danieljacobarcher)
 + [Kevin Chandler](https://github.com/kevinchandler)
