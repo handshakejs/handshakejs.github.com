@@ -51,7 +51,7 @@ Outline of the ecosystem:
 
 ## Contributors
 
-[Daniel Archer](https://github.com/danieljacobarcher)
-[Kevin Chandler](https://github.com/kevinchandler)
-[Jacob Lowe](https://github.com/jacoblwe20)
-[Scott Motte](http://github.com/scottmotte)
++ [Daniel Archer](https://github.com/danieljacobarcher)
++ [Kevin Chandler](https://github.com/kevinchandler)
++ [Jacob Lowe](https://github.com/jacoblwe20)
++ [Scott Motte](http://github.com/scottmotte)
