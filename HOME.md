@@ -26,6 +26,8 @@ The entire framework is open sourced. You can adjust the code to your own needs.
 
 [Get Started Button](https://github.com/handshakejs/handshakejs-js)
 
+* * *
+
 
 ## Ecosystem
 
@@ -47,4 +49,9 @@ Outline of the ecosystem:
 ++ [Ruby](https://github.com/handshakejs/handshakejs-ruby)
 ++ [Nodejs](https://github.com/handshakejs/handshakejs-nodejs)
 
+## Contributors
 
+[Daniel Archer](https://github.com/danieljacobarcher)
+[Kevin Chandler](https://github.com/kevinchandler)
+[Jacob Lowe](https://github.com/jacoblwe20)
+[Scott Motte](http://github.com/scottmotte)
