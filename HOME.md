@@ -43,11 +43,11 @@ Outline of the ecosystem:
 
 + [Handshake.js](https://github.com/handshakejs/handshakejs-js)
 + [API](https://github.com/handshakejs/handshakejs-api)
-++ [Logic](https://github.com/handshakejs/handshakejslogic)
-++ [Transport](https://github.com/handshakejs/handshakejstransport)
+  + [Logic](https://github.com/handshakejs/handshakejslogic)
+  + [Transport](https://github.com/handshakejs/handshakejstransport)
 + Libraries
-++ [Ruby](https://github.com/handshakejs/handshakejs-ruby)
-++ [Nodejs](https://github.com/handshakejs/handshakejs-nodejs)
+  + [Ruby](https://github.com/handshakejs/handshakejs-ruby)
+  + [Nodejs](https://github.com/handshakejs/handshakejs-nodejs)
 
 ## Made by [Scott Motte](https://github.com/scottmotte) and others
 
