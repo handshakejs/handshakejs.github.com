@@ -1,0 +1,24 @@
+pre {
+  font-size: .9em;
+}
+.dark {
+  background-color: rgb(172, 172, 172);
+}
+.light {
+  background-color: rgb(223, 223, 223);
+}
+.largewidth {
+  width: 80%;
+}
+.logo {
+  padding: 0;
+  margin: 0;
+  line-height: 0;
+}
+.description {
+  margin: 0
+}
+.left {
+  text-align: left;
+}
+

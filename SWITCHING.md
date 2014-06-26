@@ -19,12 +19,6 @@ First, make a few changes to your login form. Here's an example that isn't using
 Let's convert this to using Handshake.js. Add the js library, simplify the login form, and add the authcode form.
 
 ```html
-<head>
-  <!-- include handshake.js -->
-  <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-  <script src="http://handshakejs.la/handshake.js"></script>
-</head>
-
 <body>
   <form action="" method="POST" id="login-form">
     <!-- Optionally, add a section to display errors -->
@@ -39,36 +33,56 @@ Let's convert this to using Handshake.js. Add the js library, simplify the login
     <input name="authcode" id="authcode" type="number" />
     <button type="submit">Confirm Login</button>
   </form>
+  <!-- include handshake.js -->
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+  <script src="http://handshakejs.la/handshake.js"></script>
 </body>
 ```
 
 Next, add another script section. This logic will handle requesting the login.
 
 ```html
-<head>
+<body>
+  <form action="" method="POST" id="login-form">
+    <!-- Optionally, add a section to display errors -->
+    <span class="login-errors"></span>
+    <input name="email" id="email" type="email" />
+    <button type="submit">Request Login</button>
+  </form>
+  <form action="/authenticate" method="POST" id="authcode-form">
+    <p>Check your email. Your authcode is being emailed to you.</p>
+    <!-- Optionally, add a section to display errors -->
+    <span class="authcode-errors"></span>
+    <input name="authcode" id="authcode" type="number" />
+    <button type="submit">Confirm Login</button>
+  </form>
+
   <!-- include handshake.js -->
   <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
   <script src="http://handshakejs.la/handshake.js"></script>
   <script type="text/javascript">
-    <!-- Fill in your app_name and root_url -->
+    // 1. Fill in your app_name and root_url
     Handshakejs.setAppName("handshake-js_test");
     Handshakejs.setRootUrl("https://handshakejs-api.herokuapp.com");
 
     jQuery( function( $ ) {
+      // Start with the authcode form hidden
       var $loginForm = $("#login-form");
       var $authcodeForm = $("#authcode-form");
       $authcodeForm.hide();
 
+      // 2. When the loginForm submits
       $loginForm.submit( function( e ) {
-        // Disable the submit button to prevent repeated clicks
+        // 2a. Disable the submit button to prevent repeated clicks
         $loginForm.find("button").prop("disabled", true);
-
-        // email authcode to user
+        // 2b. Get the email
         var email = $loginForm.find("#email").val();
+        // 2c. Email authcode to user
         Handshakejs.login.request( {email: email} , function( err, res ) {
           if ( err ) {
             $loginForm.find(".login-errors").text(err);
           } else {
+            // 2d. We hide the loginForm on success and show the authcodeForm
             $loginForm.hide();
             $authcodeForm.show();
           }
@@ -78,20 +92,22 @@ Next, add another script section. This logic will handle requesting the login.
         return false;
       });
 
+      // 3. When the authcodeForm submits
       $authcodeForm.submit( function( e ) {
-        // authenticate authcode
+        // 3a. Get the email and authcode
         var email = $loginForm.find("#email").val();
         var authcode = $authcodeForm.find("#authcode").val();
+        // 3b. Confirm if correct authcode for email
         Handshakejs.login.confirm( {email: email, authcode: authcode} , function( err, res ) {
           if ( err ) {
             $authcodeForm.find(".authcode-errors").text(err);
           } else {
-            // hash represents a successfully authenticated user in a secure way
+            // 3c. Get the hash - represents the authenticated user in a secure way 
             var hash = res.identities[0].hash;
-            // Insert the hash into the form so it gets submitted to the server
+            // 3d. Insert the hash into the form so it gets submitted to the server
             $authcodeForm.append($('<input type="hidden" name="hash" />').val(hash));
             $authcodeForm.append($('<input type="hidden" name="email" />').val(email));
-            // and re-submit
+            // 3e. Submit the form
             $authcodeForm.get(0).submit();
           }
         });
@@ -101,22 +117,7 @@ Next, add another script section. This logic will handle requesting the login.
     });
 
   </script>
-</head>
 
-<body>
-  <form action="" method="POST" id="login-form">
-    <!-- Optionally, add a section to display errors -->
-    <span class="login-errors"></span>
-    <input name="email" id="email" type="email" />
-    <button type="submit">Request Login</button>
-  </form>
-  <form action="/authenticate" method="POST" id="authcode-form">
-    <p>Check your email. Your authcode is being emailed to you.</p>
-    <!-- Optionally, add a section to display errors -->
-    <span class="authcode-errors"></span>
-    <input name="authcode" id="authcode" type="number" />
-    <button type="submit">Confirm Login</button>
-  </form>
 </body>
 ```
 
