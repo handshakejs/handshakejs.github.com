@@ -1,0 +1,89 @@
+<!DOCTYPE html><!--[if !IE]><html><![endif]--><!--[if lte IE 7]><html class="ie"><![endif]--><head><!--[if lt IE 9]><script> document.createElement("column"); document.createElement("message"); </script><![endif]-->
+  <title>Handshake.js | Generate app_name</title>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="min.css">
+  <link rel="stylesheet" href="custom.css">
+</head>
+<body>
+  <div class="mediumwidth">
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <a href="/">Home</a> &nbsp;|&nbsp; 
+    <a href="#docs">Docs</a> &nbsp;|&nbsp;
+    <a href="#code">Code</a> &nbsp;|&nbsp;
+    <a href="https://twitter.com/scottmotte">Twitter</a>
+    <br/>
+    <br/>
+      <form action="" method="POST" id="generate-form" class="left">
+        <h3>Generate app_name</h3>
+        <p><span class="error"></span></p>
+        <label for="app_name">Application Name</label>
+        <br/>
+        <input type="text" class="smooth" placeholder="your_app_name" name="app_name" id="app_name">
+
+        <br/>
+        <br/>
+
+        <label for="email">Your Email</label>
+        <br/>
+        <input name="email" id="email" type="email" placeholder="Email address" />
+
+        <br/>
+
+        <button type="submit" class="btn-b btn-small smooth">Generate</button>
+      </form>
+
+      <div class="success left hide">
+        <h3>Success</h3>
+        <p>Save the following information somewhere. If you forget it, you can always just generate a new app.</p> 
+        <ul>
+          <li>app_name: <strong><span id="app_name-result"></span></strong></li>
+          <li>salt: <strong><span id="salt-result"></span></strong></li>
+        </ul>
+        <br/>
+        <h4>Next Steps</h4>
+        <ol>
+          <li>Go get <a href="https://github.com/handshakejs/handshakejs-js">handshake.js</a></li>
+          <li>Configure it with your application</li>
+        </ol>
+      </div>
+
+    </div>
+  </div>
+
+  <script src="jquery.js"></script>
+  <script>
+    $(function() {
+      $generate_form = $("#generate-form");
+      $generate_form.submit(function(e) {
+        var app_name = $("#app_name").val();
+        var email = $("#email").val();
+        var payload = {app_name: app_name, email: email};
+
+        $.ajax({
+          type: "POST",
+          url: "http://handshakejs-api.herokuapp.com/api/v1/apps/create.json",
+          data: payload,
+          success: function(resp, textstatus, xhr) {
+            var app = resp.apps[0];
+            $("#app_name-result").text(app.app_name);
+            $("#salt-result").text(app.salt);
+
+            $generate_form.hide();
+            $(".success").removeClass("hide");
+          },
+          error: function(resp, statuscode, errorthrown) {
+            var body = resp.responseJSON;
+            var error = body.errors[0];
+            $(".error").text(error.message);
+          }
+        });
+
+        return false;
+      });
+    });
+  </script>
+</body>
+</html>
